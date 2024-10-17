@@ -1,159 +1,105 @@
-from abc import ABC, abstractmethod
-import xml.etree.ElementTree as ET
+class Hardware_store():
 
-class Hardware_store(ABC):
+    def __init__(self, name: str, price: float):
+        self.name = name
+        self.price = price
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        self.price = input("Enter price: ")
-
-    @abstractmethod
-    def price(self):
+    def __getitem__(self, item): #объект класса становится подписным(как будто словарь)
         pass
 
-    @abstractmethod
-    def to_json(self, filename):
-        pass
+    def make_dict(self):
+        return {
+            "name": self.name,
+            "price": self.price,
+        }
 
-    @abstractmethod
-    def to_xml(self, filename):
-        pass
 
 class TV(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def __init__(self, name: str, price: float, resolution: str):
+        super().__init__(name, price)
+        self.resolution = resolution
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 
-class laptop(Hardware_store):
-
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def make_dict(self):
+        tv_dict = super().make_dict()
+        tv_dict["resolution"] = self.resolution
+        return tv_dict
 
 
-class phone(Hardware_store):
+class Laptop(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def __init__(self, name: str, price: float, weight: float):
+        super().__init__(name, price)
+        self.weight = weight
 
+    def __getitem__(self, item):
+        return getattr(self, item)
 
-class macbook(Hardware_store):
-
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def make_dict(self):
+        laptop_dict = super().make_dict()
+        laptop_dict["weight"] = self.weight
+        return laptop_dict
 
 
-class charger(Hardware_store):
+class Phone(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def __init__(self, name: str, price: float, memory: int):
+        super().__init__(name, price)
+        self.memory = memory
 
+    def __getitem__(self, item):
+        return getattr(self, item)
 
-class earphone(Hardware_store):
-
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def make_dict(self):
+        phone_dict = super().make_dict()
+        phone_dict["memory"] = self.memory
+        return phone_dict
 
 
-class lamp(Hardware_store):
+class Charger(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def __init__(self, name: str, price: float, power: int):
+        super().__init__(name, price)
+        self.power = power
 
+    def __getitem__(self, item):
+        return getattr(self, item)
 
-class mouse(Hardware_store):
-
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def make_dict(self):
+        charger_dict = super().make_dict()
+        charger_dict["power"] = self.power
+        return charger_dict
 
 
-class keyboard(Hardware_store):
+class Earphone(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number: ")
+    def __init__(self, name: str, price: float, frequency: int):
+        super().__init__(name, price)
+        self.frequency = frequency
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def make_dict(self):
+        earphone_dict = super().make_dict()
+        earphone_dict["frequency"] = self.frequency
+        return earphone_dict
 
 
-class computer(Hardware_store):
+class Computer(Hardware_store):
 
-    def __init__(self, name, price):
-        self.name = input("Enter name: ")
-        while True:
-            try:
-                self.price = float(input("Enter price: "))
-                if self.price <= 0:
-                    raise ValueError
-                break
-            except ValueError:
-                print("Error, enter other number:")
+    def __init__(self, name: str, price: float, cpu: str):
+        super().__init__(name, price)
+        self.cpu = cpu
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def make_dict(self):
+        computer_dict = super().make_dict()
+        computer_dict["cpu"] = self.cpu
+        return computer_dict
